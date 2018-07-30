@@ -105,6 +105,13 @@ def answersFromContours(questionCnts, thresh):
 		answers.append(bubbled[1])
 	return answers
 
+# Gets an image and returns its answers wrote in paper as an array
+def analyseImage(image):
+	readImage = cv2.imdecode(image, cv2.CV_LOAD_IMAGE_UNCHANGED)
+	questionCnts, thresh = getFilteredContours(readImage)
+	answers = answersFromContours(questionCnts, thresh)[1:]
+
+	return answers
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
