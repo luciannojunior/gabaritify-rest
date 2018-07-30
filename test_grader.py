@@ -8,6 +8,7 @@ import numpy as np
 import argparse
 import imutils
 import cv2
+import json_data_reader as reader
 
 def getFilteredContours(image):
 	#convert it to grayscale, blur it
@@ -115,6 +116,7 @@ args = vars(ap.parse_args())
 # slightly, then find edges
 image = cv2.imread(args["image"])
 questionCnts, thresh = getFilteredContours(image)
-answers = answersFromContours(questionCnts, thresh)
-print(answers)
-cv2.waitKey(-1)
+answers = answersFromContours(questionCnts, thresh)[1:]
+print("ANSWERS DETECTED: " + str(answers))
+print("GT ANSWERS:       " + str(reader.get_student_answers(args["image"])))
+cv2.waitKey(5000)
