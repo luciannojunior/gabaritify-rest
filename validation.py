@@ -1,3 +1,6 @@
+# USAGE
+# python validation.py -d path/to/dataset/
+
 import test_grader
 import json_data_reader as reader
 import os
@@ -9,7 +12,7 @@ ap.add_argument("-d", "--dataset", required=True,
 	help="path to the input dataset")
 args = vars(ap.parse_args())
 
-dataset_dir = args["dataset"]
+dataset_dir = args["dataset"] if args["dataset"].endswith("/") else args["dataset"] + "/"
 exams = 0
 exams_hits = 0
 questions = 0
