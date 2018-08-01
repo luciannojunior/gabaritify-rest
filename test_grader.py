@@ -86,20 +86,11 @@ def correcAnswerInRow(cnts, thresh):
 
 def answersFromContours(questionCnts, thresh):
 	answers = []
-	for (q, i) in enumerate(np.arange(0, len(questionCnts)-10, 4)):
+	for (q, i) in enumerate(np.arange(0, len(questionCnts), 4)):
 		# sort the contours for the current question from
 		# left to right, then initialize the index of the
 		# bubbled answer
 		cnts = contours.sort_contours(questionCnts[i:i + 4])[0]
-		bubbled = correcAnswerInRow(cnts, thresh)
-		# check to see if the bubbled answer is correct
-		answers.append(bubbled[1])
-
-	for (q, i) in enumerate(np.arange(len(questionCnts)-10, len(questionCnts), 2)):
-		# sort the contours for the current question from
-		# left to right, then initialize the index of the
-		# bubbled answer
-		cnts = contours.sort_contours(questionCnts[i:i + 2])[0]
 		bubbled = correcAnswerInRow(cnts, thresh)
 		# check to see if the bubbled answer is correct
 		answers.append(bubbled[1])
@@ -123,7 +114,5 @@ args = vars(ap.parse_args())
 # slightly, then find edges
 image = cv2.imread(args["image"])
 questionCnts, thresh = getFilteredContours(image)
-answers = answersFromContours(questionCnts, thresh)[1:]
+answers = answersFromContours(questionCnts, thresh)
 print("ANSWERS DETECTED: " + str(answers))
-print("GT ANSWERS:       " + str(reader.get_student_answers(args["image"])))
-cv2.waitKey(5000)
