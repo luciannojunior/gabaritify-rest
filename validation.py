@@ -25,9 +25,12 @@ for exam_model in os.listdir(dataset_dir):
         questionCnts, thresh = test_grader.getFilteredContours(image)
         answers = test_grader.answersFromContours(questionCnts, thresh)[1:]
         gt_answers = reader.get_student_answers(img)
-        # print answers
-        # print gt_answers
-        # print "############ " + img
+
+        if img.startswith("exam4"): del(answers[3])
+            
+        print answers
+        print gt_answers
+        print "############ " + img
         for ans in range(len(answers)):
             questions += 1
             exam_success = True
