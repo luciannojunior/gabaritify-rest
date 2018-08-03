@@ -1,14 +1,18 @@
 from flask import Flask, request
 import test_grader as tester
 import json
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
 
 @app.route('/upload', methods=['POST'])
+@cross_origin()
 def upload_file():
     file = request.files['imagem']
     # f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
