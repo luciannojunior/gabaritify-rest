@@ -49,8 +49,8 @@ def getFilteredContours(image):
 		if area > 7000 and ar >= 1.7 and ar <= 2.3:
 			questionCnts.append(c)
 			cv2.rectangle(imageFilter,(x,y),(x+w,y+h),(0,255,0),2)
-	cv2.imshow("ImagemFilter", imageFilter)
-	cv2.imshow("ImagemAll", imageAll)
+	#cv2.imshow("ImagemFilter", imageFilter)
+	#cv2.imshow("ImagemAll", imageAll)
 
 
 	# sort the question contours top-to-bottom, then initialize
@@ -79,7 +79,7 @@ def correcAnswerInRow(cnts, thresh):
 		# if the current total has a larger number of total
 		# non-zero pixels, then we are examining the currently
 		# bubbled-in answer
-		print(total, j)
+		#print(total, j)
 		if bubbled is None or total > bubbled[0]:
 			bubbled = (total, j)
 	return bubbled
