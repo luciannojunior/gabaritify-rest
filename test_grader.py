@@ -5,7 +5,6 @@
 from imutils.perspective import four_point_transform
 from imutils import contours
 import numpy as np
-import argparse
 import imutils
 import cv2
 import json_data_reader as reader
@@ -98,21 +97,12 @@ def answersFromContours(questionCnts, thresh):
 
 # Gets an image and returns its answers wrote in paper as an array
 def analyseImage(image):
-	readImage = cv2.imdecode(image, cv2.CV_LOAD_IMAGE_UNCHANGED)
+	# readImage = cv2.imdecode(np.asarray(image), cv2.IMREAD_COLOR)
+	readImage = cv2.imdecode(np.fromstring(image.read(), np.uint8), cv2.IMREAD_COLOR)
 	questionCnts, thresh = getFilteredContours(readImage)
-	answers = answersFromContours(questionCnts, thresh)[1:]
+	print 'CHEGOU NO QUESTION'
+	answers = answersFromContours(questionCnts, thresh)
+	print answers
+
 
 	return answers
-
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="path to the input image")
-args = vars(ap.parse_args())
-
-# load the image, 
-# slightly, then find edges
-image = cv2.imread(args["image"])
-questionCnts, thresh = getFilteredContours(image)
-answers = answersFromContours(questionCnts, thresh)
-print("ANSWERS DETECTED: " + str(answers))
